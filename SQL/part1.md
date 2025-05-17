@@ -85,15 +85,42 @@ CREATE TABLE students (
 );
 ```
 
-# 🌟 SQL DISTINCT – In a Nutshell
+# 🌟 SQL `DISTINCT` – In a Nutshell
 
 ## ❓ Why Use `DISTINCT`?
-The `DISTINCT` keyword is used to **remove duplicate values** from the result set.  
-It ensures that the returned data contains **only unique values**.
+The `DISTINCT` keyword is used to **remove duplicate rows** from the result set.  
+It ensures that the returned data contains **only unique combinations** of the selected columns.
 
 ## 🔤 Basic Syntax
 ```sql
 SELECT DISTINCT column1, column2, ...
+FROM table_name;
+```
+
+# 🔢 SQL COUNT – In a Nutshell
+
+## ❓ Why Use `COUNT`?
+The `COUNT` function is used to **count the number of rows** that match a specified condition in a table.
+
+## 🔤 Basic Syntax
+```sql
+SELECT COUNT(*) FROM table_name;
+
+SELECT COUNT(*) FROM customers;
+-- Counts total rows in the 'customers' table
+
+SELECT COUNT(email) FROM customers;
+-- Counts only rows where 'email' is NOT NULL
+```
+
+# 🔢 COUNT with DISTINCT in SQL
+
+## ❓ Purpose:
+To **count the number of unique (distinct) values** in a specific column.
+
+## 🔤 Syntax:
+```sql
+SELECT COUNT(DISTINCT column_name)
 FROM table_name;
 ```
 
