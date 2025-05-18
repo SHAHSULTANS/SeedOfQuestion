@@ -157,3 +157,35 @@ SELECT column1, column2
 FROM table_name
 WHERE condition1 AND|OR condition2;
 ```
+# 🎯 চ্যালেঞ্জ নাম্বার ১
+
+## 📌 প্রশ্ন (বাংলায়):
+একজন গ্রাহক আমাদের দোকানে তার মানিব্যাগ ফেলে গেছেন! তাকে জানাতে আমাদের তার ইমেইল ঠিকানাটি খুঁজে বের করতে হবে।  
+**গ্রাহকের নাম: Nancy Thomas**  
+➤ আমরা কীভাবে তার ইমেইলটি খুঁজে বের করব?
+
+---
+
+## 🧾 উত্তর (SQL):
+
+```sql
+SELECT email
+FROM customers
+WHERE first_name = 'Nancy' AND last_name = 'Thomas';
+```
+
+# ❓ Why Use Single Quotes `' '` in SQL, Not Double Quotes `" "`?
+
+## 🔤 Rule in SQL:
+- ✅ **Single quotes `' '`** are used to **represent string literals**  
+  Example:
+  ```sql
+  SELECT * FROM users WHERE name = 'Alice';
+  ```
+
+*🔒 Double quotes " " are used to represent identifiers (like column or table names), especially when*
+
+Example:
+  ```sql
+  SELECT "first Name" FROM "user Data";
+  ```
