@@ -124,3 +124,36 @@ SELECT COUNT(DISTINCT column_name)
 FROM table_name;
 ```
 
+# 🎯 SQL SELECT WHERE – In a Nutshell
+
+## ❓ Why Use `WHERE`?
+The `WHERE` clause is used to **filter records** in a SQL query.  
+It tells the database to **only return rows that meet a specific condition**.
+
+Without `WHERE`, SQL returns **all rows** from the table.
+
+---
+
+## 🔤 Basic Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+SELECT name, department
+FROM employees
+WHERE department = 'HR';#use single quotes
+```
+# 🔍 SQL WHERE Clause with Multiple Conditions
+
+## 📌 Purpose:
+Use `AND`, `OR`, `BETWEEN`, `IN`, and `LIKE` with `WHERE` to **create more precise filters**.
+
+---
+
+## 🔤 Syntax:
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition1 AND|OR condition2;
+```
