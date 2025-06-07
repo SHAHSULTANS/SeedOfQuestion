@@ -1,0 +1,19 @@
+# Ignore node_modules
+Node/practice/node_modules/
+
+# Ignore all .log files
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore local environment configs
+.env
+
+# Ignore compiled files
+*.class
+*.pyc
+
+# Ignore package-lock.json
+Node/practice/package-lock.json

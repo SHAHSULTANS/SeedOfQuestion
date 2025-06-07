@@ -6,9 +6,13 @@
   "main": "2_node_js_basic.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node 2_node_js_basic.js",
+    "start": "nodemon 2_node_js_basic_with_express.js",
     "start-something": "node 2_node_js_basic.js"
   },
   "author": "shanto",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
 }
