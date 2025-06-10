@@ -1,0 +1,32 @@
+/* public/css/style.css */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-header {
+  background-color: #333;
+  padding: 1rem;
+  color: white;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}

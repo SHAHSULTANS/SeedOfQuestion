@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>admin_page</title>
+    <title>admin</title>
+    <link rel="stylesheet" href="./css/navbar.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="add_product">Add Product</a></li>
-          <li><a href="/">Shop</a></li>
+    <header class="main-header">
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="add-product" class="nav-link">Add Product</a></li>
+          <li><a href="/" class="nav-link">Shop</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <form action="/add_product" method="post">
+      <form action="/add-product" method="post">
         <input type="text" name="title" id="" />
         <button type="submit">submit</button>
       </form>
