@@ -73,3 +73,126 @@ tourSchema.pre("save", function (next) {
   👉 Modify করে ডকুমেন্ট (e.g. password hash)
 
 ---
+
+**`this` keyword টা Document Middleware, Query Middleware, এবং Aggregation Middleware-এ কী বোঝায়?** — এটা system-level context বোঝার জন্য **খুবই গুরুত্বপূর্ণ**।
+
+নিচে প্রতিটা middleware context-এ `this` কী বোঝায়, বাস্তব উদাহরণসহ ব্যাখ্যা করলাম।
+
+---
+
+## 🧠 `this` এর ভিন্ন ব্যবহার – Middleware অনুযায়ী
+
+| Middleware Type        | `this` কী বোঝায়                                |
+| ---------------------- | ---------------------------------------------- |
+| Document Middleware    | 👉 Mongoose Document (i.e. `doc`)              |
+| Query Middleware       | 👉 Mongoose Query Object (`this.getQuery()`)   |
+| Aggregation Middleware | 👉 Aggregation Object (i.e. `this.pipeline()`) |
+
+---
+
+## 🔹 1. Document Middleware – `this = document`
+
+```js
+tourSchema.pre("save", function (next) {
+  console.log(this); // 👉 এই `this` হলো save হতে যাওয়া document
+
+  this.slug = slugify(this.name, { lower: true }); // ✅ document এর ভেতরের ফিল্ডে কাজ
+  next();
+});
+```
+
+### ✅ এখানে `this` মানে:
+
+- একটি Tour ডকুমেন্ট
+- তুমি এটাতে `.name`, `.price`, `.save()` ইত্যাদি সব access করতে পারো
+
+---
+
+## 🔹 2. Query Middleware – `this = query object`
+
+```js
+tourSchema.pre(/^find/, function (next) {
+  console.log(this.getQuery()); // 👉 এখানে this = mongoose query instance
+
+  this.find({ secretTour: { $ne: true } }); // ✅ query modify করা হচ্ছে
+  next();
+});
+```
+
+### ✅ এখানে `this` মানে:
+
+- একটি query instance
+- তুমি `.find()`, `.select()`, `.getQuery()` এসব ব্যবহার করতে পারো
+
+🎯 **ব্যবহার:**
+
+- query থেকে `secretTour` বাদ দেওয়া
+- timestamp log করা
+
+---
+
+## 🔹 3. Aggregation Middleware – `this = aggregation object`
+
+```js
+tourSchema.pre("aggregate", function (next) {
+  console.log(this.pipeline()); // 👉 এখানে `this` = aggregation query object
+
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  next();
+});
+```
+
+### ✅ এখানে `this` মানে:
+
+- একটি aggregation pipeline object
+- তুমি `.pipeline()` দিয়ে current pipeline access করতে পারো
+
+🎯 **ব্যবহার:**
+
+- aggregation শুরু হবার আগে pipeline modify করা
+
+---
+
+## ⚖️ তুলনামূলক চিত্র:
+
+| Context            | `this` কী বোঝায়?            | Access কী কী?                         |
+| ------------------ | --------------------------- | ------------------------------------- |
+| `pre("save")`      | Document (`Tour` doc)       | `.name`, `.price`, `.save()`          |
+| `pre("find")`      | Query object                | `.getQuery()`, `.find()`, `.select()` |
+| `pre("aggregate")` | Aggregation pipeline object | `.pipeline()`                         |
+
+---
+
+## 🧪 বাস্তব উদাহরণ (সব ৩টি একত্রে):
+
+```js
+// Document middleware
+tourSchema.pre("save", function (next) {
+  console.log("🧾 Document middleware - name:", this.name);
+  next();
+});
+
+// Query middleware
+tourSchema.pre(/^find/, function (next) {
+  console.log("🔎 Query middleware - filters:", this.getQuery());
+  next();
+});
+
+// Aggregation middleware
+tourSchema.pre("aggregate", function (next) {
+  console.log("📊 Aggregation middleware - pipeline:", this.pipeline());
+  next();
+});
+```
+
+---
+
+## 📌 সহজে মনে রাখার টিপস:
+
+| ধরন         | `this` কী?      | মনে রাখার ট্রিক                             |
+| ----------- | --------------- | ------------------------------------------- |
+| Document    | `Tour` document | ডাটা **save** করার আগে, `this = document`   |
+| Query       | query object    | **find** এর আগে query টা চেক করার সুযোগ     |
+| Aggregation | pipeline object | aggregate হলে, pipeline চেইন modify করা যায় |
+
+---
