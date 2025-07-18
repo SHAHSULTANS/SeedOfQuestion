@@ -1,10 +1,14 @@
 const fs = require("fs");
 
-const textInput = fs.readFileSync("./txt/input.txt", "utf-8");
+//#######################
+//File System
 
-console.log(textInput);
+// const textInput = fs.readFileSync("./txt/input.txt", "utf-8");
 
-const textOut = `Welcome to Jahangirnagar university : ${textInput} \n Created on ${Date.now()} `;
+// console.log(textInput);
 
-fs.writeFileSync("./txt/output.txt", textOut);
-console.log("written sucessfully");
+// const textOut = `Welcome to Jahangirnagar university : ${textInput} \n Created on ${Date.now()} `;
+
+// fs.writeFileSync("./txt/output.txt", textOut);
+// console.log("written sucessfully");
+ 
